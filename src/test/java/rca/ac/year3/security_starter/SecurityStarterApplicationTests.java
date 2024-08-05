@@ -1,4 +1,4 @@
-package rca.ac.year3.security_starter;
+package qt.rw.challenge.blog_post;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

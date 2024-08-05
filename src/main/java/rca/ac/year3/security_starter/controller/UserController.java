@@ -12,6 +12,7 @@ import rca.ac.year3.security_starter.payload.ApiResponse;
 import rca.ac.year3.security_starter.security.CustomUserDetailsService;
 import rca.ac.year3.security_starter.services.IUserService;
 import rca.ac.year3.security_starter.utils.ExceptionUtils;
+import rca.ac.year3.security_starter.utils.Profile;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class UserController {
 
     @GetMapping("/welcome")
     public String welcome() {
-        return "*************Welcome to the E BANKING SYSTEM********";
+        return "*************Welcome to the QT BLOG APP********";
     }
 
     @PostMapping("/register-admin")
@@ -41,7 +42,6 @@ public class UserController {
         }
     }
 
-//TODO : Implement get profile
     @GetMapping("/admin/adminProfile")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String adminProfile() {
@@ -54,11 +54,10 @@ public class UserController {
         return service.listAll();
     }
 
-    @GetMapping("/user/userProfile")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    public String userProfile() {
-        return "Welcome to User Profile";
+    @GetMapping("/profile")
+    public ResponseEntity<ApiResponse> getProfile(){
+        Profile profile = userService.getLoggedInProfile();
+        return ResponseEntity.ok(ApiResponse.success(profile));
     }
-
 
 }

@@ -17,7 +17,6 @@ import rca.ac.year3.security_starter.models.UserData;
 import rca.ac.year3.security_starter.repository.UserDataRepository;
 import rca.ac.year3.security_starter.services.IRoleService;
 import rca.ac.year3.security_starter.services.IUserService;
-import rca.ac.year3.security_starter.services.MailService;
 import rca.ac.year3.security_starter.utils.ExceptionUtils;
 import rca.ac.year3.security_starter.utils.Profile;
 
@@ -37,7 +36,7 @@ public class UserServiceImpl implements IUserService {
 
 
     @Autowired
-    public UserServiceImpl(IRoleService iRoleService, MailService mailService, UserDataRepository userRepository, PasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(IRoleService iRoleService, UserDataRepository userRepository, PasswordEncoder bCryptPasswordEncoder) {
         this.roleService = iRoleService;
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;

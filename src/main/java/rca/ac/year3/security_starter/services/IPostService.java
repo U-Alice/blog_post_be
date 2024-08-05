@@ -1,7 +1,9 @@
 package rca.ac.year3.security_starter.services;
 
+import rca.ac.year3.security_starter.dto.CommentDTO;
 import rca.ac.year3.security_starter.dto.PostDTO;
 import rca.ac.year3.security_starter.models.Author;
+import rca.ac.year3.security_starter.models.Comment;
 import rca.ac.year3.security_starter.models.Post;
 
 import java.util.List;
@@ -16,4 +18,9 @@ public interface IPostService {
     Post findById(UUID id);
 
     List<Post> findByAuthor(UUID id);
+
+    Comment addCommentToPost(UUID postId, String comment);
+
+
+    List<Comment> getCommentsByPost(UUID postId);
 }

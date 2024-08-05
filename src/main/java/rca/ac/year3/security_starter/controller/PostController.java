@@ -4,6 +4,7 @@ package rca.ac.year3.security_starter.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rca.ac.year3.security_starter.dto.CommentDTO;
 import rca.ac.year3.security_starter.dto.PostDTO;
 import rca.ac.year3.security_starter.payload.ApiResponse;
 import rca.ac.year3.security_starter.services.IPostService;
@@ -74,6 +75,24 @@ public class PostController {
             return ResponseEntity.ok(ApiResponse.success(postService.findById(id)));
 
         }catch(Exception e){
+            return ExceptionUtils.handleControllerExceptions(e);
+        }
+    }
+
+    @PostMapping("/{postId}/comments")
+    public ResponseEntity<ApiResponse> addCommentToPost(@PathVariable UUID postId, @Valid @RequestBody String comment) {
+        try {
+            return ResponseEntity.ok(ApiResponse.success(postService.addCommentToPost(postId, comment)));
+        } catch (Exception e) {
+            return ExceptionUtils.handleControllerExceptions(e);
+        }
+    }
+
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<ApiResponse> getCommentsByPost(@PathVariable UUID postId) {
+        try {
+            return ResponseEntity.ok(ApiResponse.success(postService.getCommentsByPost(postId)));
+        } catch (Exception e) {
             return ExceptionUtils.handleControllerExceptions(e);
         }
     }

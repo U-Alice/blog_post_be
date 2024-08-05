@@ -14,9 +14,6 @@ public class CommentDTO {
     @NotEmpty(message = "Content cannot be empty")
     private String content;
 
-    @NotNull(message = "Author ID cannot be null")
-    private UUID authorId;
-
     @NotNull(message = "Post ID cannot be null")
     private UUID postId;
 }

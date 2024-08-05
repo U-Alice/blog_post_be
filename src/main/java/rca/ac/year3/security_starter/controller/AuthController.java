@@ -39,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> authenticateAndGetToken( @Valid @RequestBody LoginDTO authRequest) {
-//        try {
+        try {
             log.info("Request to login user {} " , authRequest.getUsername());
             UserDetails userDetails = service.loadUserByUsername(authRequest.getUsername());
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -49,13 +49,13 @@ public class AuthController {
                 throw new UsernameNotFoundException("Invalid user request !");
             }
 
-//        }catch (Exception e){
-//            log.info("Error Occurred while logging in user {} ", authRequest.getUsername());
-//            if(e instanceof BadCredentialsException){
-//                throw new BadRequestException("Incorrect Email or Password!");
-//            }
-//            ExceptionUtils.handleControllerExceptions(e);
-//            return null;
-//        }
+        }catch (Exception e){
+            log.info("Error Occurred while logging in user {} ", authRequest.getUsername());
+            if(e instanceof BadCredentialsException){
+                throw new BadRequestException("Incorrect Email or Password!");
+            }
+            ExceptionUtils.handleControllerExceptions(e);
+            return null;
+        }
     }
 }

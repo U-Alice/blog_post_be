@@ -5,9 +5,11 @@ import rca.ac.year3.security_starter.dto.CommentDTO;
 import rca.ac.year3.security_starter.exceptions.ResourceNotFoundException;
 import rca.ac.year3.security_starter.models.Author;
 import rca.ac.year3.security_starter.models.Comment;
+import rca.ac.year3.security_starter.models.UserData;
 import rca.ac.year3.security_starter.repository.ICommentRepository;
 import rca.ac.year3.security_starter.services.IAuthorService;
 import rca.ac.year3.security_starter.services.ICommentService;
+import rca.ac.year3.security_starter.services.IUserService;
 import rca.ac.year3.security_starter.utils.ExceptionUtils;
 import rca.ac.year3.security_starter.utils.Mapper;
 
@@ -21,9 +23,11 @@ public class CommentServiceImpl implements ICommentService {
 
     private final IAuthorService authorService;
 
-    public CommentServiceImpl(ICommentRepository commentRepository, IAuthorService authorService) {
+    private final IUserService userService;
+    public CommentServiceImpl(ICommentRepository commentRepository, IAuthorService authorService, IUserService userService) {
         this.commentRepository = commentRepository;
         this.authorService = authorService;
+        this.userService = userService;
     }
 
     @Override
@@ -68,7 +72,8 @@ public class CommentServiceImpl implements ICommentService {
         Comment existingComment = commentRepository.findById(id).orElse(null);
         if (existingComment != null) {
             existingComment.setContent(commentDTO.getContent());
-            Author author = authorService.findById(commentDTO.getAuthorId());
+            UserData userData = userService.getLoggedInUser();
+            Author author = authorService.findById(userData.getId());
             existingComment.setAuthor(author);
             return commentRepository.save(existingComment);
         }
